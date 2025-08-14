@@ -235,6 +235,7 @@ scene.setBackgroundImage(img`
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
     `)
 scroller.scrollBackgroundWithSpeed(-50, 0)
+game.splash("Space Shooter", "Press A to start")
 mySprite = sprites.create(img`
     ..............ffffff....
     ..fc.........fccc2ff....
