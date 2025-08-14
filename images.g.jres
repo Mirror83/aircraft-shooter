@@ -1,0 +1,12 @@
+{
+    "image1": {
+        "data": "hwQYABAAAAAAAADADwAAAAAAAKz6AAAAAADAqqoPAAAAAJyrqg8AAP/Ambmq+gAA/8+bGar6AACvr7QRqvoAAK9MpBGq+gAAz0yqkar6AADPTKqbqvr/APCsqqqq+soPAK+qqqr8zPwAr6qqSv+v+gCvqqpM9P//AMCqyqpE//8AwKrKqkr8/wDArMqqqvoPAMysyqyq+gDATKTK/Kr6AMxEqswPr/oATKT6yg/A/AD8/8+qDwAAAAAAAKwPAAAAAAAA8A8AAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Enemy Plane"
+    },
+    "*": {
+        "mimeType": "image/x-mkcd-f4",
+        "dataEncoding": "base64",
+        "namespace": "myImages"
+    }
+}
