@@ -110,6 +110,8 @@ let projectile2: Sprite = null
 let projectile: Sprite = null
 let mySprite: Sprite = null
 info.setLife(1)
+let enemySpwanTimeLowerBound = 500
+let enemySpeedLowerBound = -50
 scene.setBackgroundImage(img`
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -363,8 +365,12 @@ true
 )
 mySprite.x = 20
 forever(function () {
-    projectile2 = sprites.createProjectileFromSide(assets.image`Enemy Plane`, randint(-50, -100), 0)
+    projectile2 = sprites.createProjectileFromSide(assets.image`Enemy Plane`, randint(enemySpeedLowerBound, enemySpeedLowerBound * 2), 0)
     projectile2.setKind(SpriteKind.Enemy)
     projectile2.y = randint(15, 115)
-    pause(randint(500, 2000))
+    pause(randint(enemySpwanTimeLowerBound, 2000))
+})
+game.onUpdateInterval(10000, function () {
+    enemySpwanTimeLowerBound += -100
+    enemySpeedLowerBound += -20
 })
