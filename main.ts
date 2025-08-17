@@ -20,7 +20,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Time, function (sprite, otherSprite) {
     info.changeCountdownBy(randint(1, 3))
     sprites.destroy(otherSprite)
-    effects.confetti.startScreenEffect(100)
+    effects.confetti.startScreenEffect(500)
 })
 sprites.onOverlap(SpriteKind.PlayerLaser, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprites.destroy(sprite)
@@ -53,7 +53,7 @@ assets.animation`Player Plane Animation`,
 true
 )
 mySprite.x = 20
-info.startCountdown(12)
+info.startCountdown(20)
 game.onUpdateInterval(2500, function () {
     enemySpwanTimeLowerBound += -50
     enemySpawnTimeUpperBound += -50
