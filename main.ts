@@ -1,15 +1,26 @@
 namespace SpriteKind {
     export const PlayerLaser = SpriteKind.create()
+    export const Time = SpriteKind.create()
 }
+sprites.onOverlap(SpriteKind.PlayerLaser, SpriteKind.Time, function (sprite, otherSprite) {
+    sprites.destroy(sprite)
+    sprites.destroy(otherSprite, effects.ashes, 25)
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    projectile = sprites.createProjectileFromSprite(assets.image`Laser`, mySprite, 100, 0)
+    projectile = sprites.createProjectileFromSprite(assets.image`Laser`, mySprite, 200, 0)
     projectile.setKind(SpriteKind.PlayerLaser)
     animation.runImageAnimation(
     projectile,
-    assets.animation`Lazer Animation`,
+    assets.animation`Laser Animation`,
     50,
     true
     )
+})
+// Increase the time
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Time, function (sprite, otherSprite) {
+    info.changeCountdownBy(randint(1, 3))
+    sprites.destroy(otherSprite)
+    effects.confetti.startScreenEffect(100)
 })
 sprites.onOverlap(SpriteKind.PlayerLaser, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprites.destroy(sprite)
@@ -21,11 +32,13 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     info.changeLifeBy(-1)
     scene.cameraShake(4, 500)
 })
+let time: Sprite = null
 let projectile2: Sprite = null
 let projectile: Sprite = null
 let mySprite: Sprite = null
 info.setLife(1)
 let enemySpwanTimeLowerBound = 500
+let enemySpawnTimeUpperBound = 2000
 let enemySpeedLowerBound = -50
 scene.setBackgroundImage(assets.image`Empty Space`)
 scroller.scrollBackgroundWithSpeed(-50, 0)
@@ -40,6 +53,12 @@ assets.animation`Player Plane Animation`,
 true
 )
 mySprite.x = 20
+info.startCountdown(12)
+game.onUpdateInterval(2500, function () {
+    enemySpwanTimeLowerBound += -50
+    enemySpawnTimeUpperBound += -50
+    enemySpeedLowerBound += -10
+})
 forever(function () {
     projectile2 = sprites.createProjectileFromSide(assets.image`Enemy Plane`, randint(enemySpeedLowerBound, enemySpeedLowerBound * 2), 0)
     animation.runImageAnimation(
@@ -50,9 +69,28 @@ forever(function () {
     )
     projectile2.setKind(SpriteKind.Enemy)
     projectile2.y = randint(15, 115)
-    pause(randint(enemySpwanTimeLowerBound, 2000))
+    pause(randint(enemySpwanTimeLowerBound, enemySpawnTimeUpperBound))
 })
-game.onUpdateInterval(10000, function () {
-    enemySpwanTimeLowerBound += -100
-    enemySpeedLowerBound += -20
+forever(function () {
+    time = sprites.createProjectileFromSide(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . 1 1 1 1 1 1 1 . . . . 
+        . . . . 1 . . . e . . . 1 . . . 
+        . . . 1 . . . . . . . . . 1 . . 
+        . . 1 . . . . . d . . . . . 1 . 
+        . . 1 . . . . . d . . . . . 1 . 
+        . . 1 . . . . . d . . . . . 1 . 
+        . . 1 e . . . . d d d d . e 1 . 
+        . . 1 . . . . . . . . . . . 1 . 
+        . . 1 . . . . . . . . . . . 1 . 
+        . . 1 . . . . . . . . . . . 1 . 
+        . . . 1 . . . . . . . . . 1 . . 
+        . . . . 1 . . . e . . . 1 . . . 
+        . . . . . 1 1 1 1 1 1 1 . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, randint(-250, -150), 0)
+    time.setKind(SpriteKind.Time)
+    time.y = randint(15, 115)
+    pause(5000)
 })
