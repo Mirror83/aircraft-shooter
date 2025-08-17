@@ -3,10 +3,12 @@ namespace SpriteKind {
     export const Time = SpriteKind.create()
 }
 sprites.onOverlap(SpriteKind.PlayerLaser, SpriteKind.Time, function (sprite, otherSprite) {
+    music.play(music.createSoundEffect(WaveShape.Noise, 2827, 742, 255, 0, 500, SoundExpressionEffect.Warble, InterpolationCurve.Logarithmic), music.PlaybackMode.InBackground)
     sprites.destroy(sprite)
     sprites.destroy(otherSprite, effects.ashes, 25)
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    music.play(music.createSoundEffect(WaveShape.Square, 1600, 1, 255, 0, 300, SoundExpressionEffect.None, InterpolationCurve.Curve), music.PlaybackMode.InBackground)
     projectile = sprites.createProjectileFromSprite(assets.image`Laser`, mySprite, 200, 0)
     projectile.setKind(SpriteKind.PlayerLaser)
     animation.runImageAnimation(
@@ -18,14 +20,19 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 // Increase the time
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Time, function (sprite, otherSprite) {
+    music.play(music.melodyPlayable(music.magicWand), music.PlaybackMode.InBackground)
     info.changeCountdownBy(randint(1, 3))
     sprites.destroy(otherSprite)
     effects.confetti.startScreenEffect(500)
 })
 sprites.onOverlap(SpriteKind.PlayerLaser, SpriteKind.Enemy, function (sprite, otherSprite) {
+    music.play(music.createSoundEffect(WaveShape.Triangle, 390, 412, 255, 0, 200, SoundExpressionEffect.Tremolo, InterpolationCurve.Curve), music.PlaybackMode.InBackground)
     sprites.destroy(sprite)
     sprites.destroy(otherSprite, effects.ashes, 25)
     info.changeScoreBy(1)
+})
+info.onLifeZero(function () {
+    game.gameOver(false)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprites.destroy(otherSprite)
