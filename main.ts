@@ -3,8 +3,14 @@ namespace SpriteKind {
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     laser = sprites.createProjectileFromSprite(assets.image`Laser`, playerPlane, 200, 0)
+    laser.setKind(SpriteKind.PlayerLaser)
     // This allows for the plane to be destroyed automatically after it leaves the screen
     laser.setFlag(SpriteFlag.AutoDestroy, true)
+})
+sprites.onOverlap(SpriteKind.PlayerLaser, SpriteKind.Enemy, function (sprite, otherSprite) {
+    info.changeScoreBy(1)
+    sprites.destroy(sprite)
+    sprites.destroy(otherSprite)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
