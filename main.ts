@@ -21,6 +21,7 @@ let laser: Sprite = null
 let playerPlane: Sprite = null
 scene.setBackgroundImage(assets.image`Empty Space`)
 game.splash("Space Shooter", "Press A to start")
+scroller.scrollBackgroundWithSpeed(-100, 0)
 playerPlane = sprites.create(assets.image`Player Plane`, SpriteKind.Player)
 playerPlane.setPosition(20, 58)
 controller.moveSprite(playerPlane, 0, 100)
