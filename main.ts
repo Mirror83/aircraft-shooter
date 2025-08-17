@@ -16,8 +16,8 @@ let playerPlane: Sprite = null
 scene.setBackgroundImage(assets.image`Empty Space`)
 game.splash("Space Shooter", "Press A to start")
 playerPlane = sprites.create(assets.image`Player Plane`, SpriteKind.Player)
-controller.moveSprite(playerPlane, 0, 100)
 playerPlane.setPosition(20, 58)
+controller.moveSprite(playerPlane, 0, 100)
 playerPlane.setStayInScreen(true)
 info.setLife(2)
 forever(function () {
