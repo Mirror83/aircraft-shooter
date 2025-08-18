@@ -4,6 +4,7 @@ namespace SpriteKind {
 }
 sprites.onOverlap(SpriteKind.PlayerLaser, SpriteKind.Time, function (sprite, otherSprite) {
     music.play(music.createSoundEffect(WaveShape.Noise, 2827, 742, 255, 0, 500, SoundExpressionEffect.Warble, InterpolationCurve.Logarithmic), music.PlaybackMode.InBackground)
+    mySprite.sayText("+0s", 1000, true)
     sprites.destroy(sprite)
     sprites.destroy(otherSprite, effects.ashes, 25)
 })
@@ -21,7 +22,9 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 // Increase the time
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Time, function (sprite, otherSprite) {
     music.play(music.melodyPlayable(music.magicWand), music.PlaybackMode.InBackground)
-    info.changeCountdownBy(randint(1, 3))
+    timeIncrement = randint(1, 3)
+    info.changeCountdownBy(timeIncrement)
+    sprite.sayText("+" + timeIncrement + "s", 1000, true)
     sprites.destroy(otherSprite)
     effects.confetti.startScreenEffect(500)
 })
@@ -41,6 +44,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 })
 let time: Sprite = null
 let projectile2: Sprite = null
+let timeIncrement = 0
 let projectile: Sprite = null
 let mySprite: Sprite = null
 info.setLife(1)
